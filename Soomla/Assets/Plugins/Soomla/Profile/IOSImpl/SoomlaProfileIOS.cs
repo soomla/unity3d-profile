@@ -107,7 +107,9 @@ namespace Soomla.Profile {
 			
 			string json = Marshal.PtrToStringAnsi(p);
 			Marshal.FreeHGlobal(p);
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "Got json: " + json);
+			#endif
 			
 			JSONObject obj = new JSONObject(json);
 			return new UserProfile(obj);

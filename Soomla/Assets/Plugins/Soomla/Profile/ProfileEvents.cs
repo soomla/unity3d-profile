@@ -37,7 +37,9 @@ namespace Soomla.Profile {
 		/// </summary>
 		void Awake(){
 			if(instance == null){ 	// making sure we only initialize one instance.
+				#if DEBUG_SOOMLA
 				SoomlaUtils.LogDebug(TAG, "Initializing ProfileEvents (Awake)");
+				#endif
 
 				instance = this;
                 gameObject.name = "ProfileEvents";
@@ -56,7 +58,9 @@ namespace Soomla.Profile {
 		}
 
 		public static void Initialize() {
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug (TAG, "Initializing ProfileEvents ...");
+			#endif
 			#if UNITY_ANDROID && !UNITY_EDITOR
 			AndroidJNI.PushLocalFrame(100);
 			//init ProfileEventHandler
@@ -75,7 +79,9 @@ namespace Soomla.Profile {
 		/// </summary>
 		public void onSoomlaProfileInitialized()
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSoomlaProfileInitialized");
+			#endif
 
 			SoomlaProfile.TryFireProfileInitialized();
 		}
@@ -85,7 +91,9 @@ namespace Soomla.Profile {
 		/// </summary>
 		public void onUserRatingEvent()
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onUserRatingEvent");
+			#endif
 
 			ProfileEvents.OnUserRatingEvent ();
 		}
@@ -96,7 +104,9 @@ namespace Soomla.Profile {
 		/// <param name="message">Will contain a JSON representation of a <c>UserProfile</c></param>
 		public void onUserProfileUpdated(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onUserProfileUpdated");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 			UserProfile userProfile = new UserProfile (eventJson ["userProfile"]);
@@ -112,7 +122,9 @@ namespace Soomla.Profile {
 		/// as well as payload </param>
 		public void onLoginStarted(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginStarted");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 			Provider provider = Provider.fromInt((int)(eventJson["provider"].n));
@@ -127,7 +139,9 @@ namespace Soomla.Profile {
 		/// <param name="message">Will contain a JSON representation of a <c>UserProfile</c> and payload</param>
 		public void onLoginFinished(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginFinished");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 
@@ -151,7 +165,9 @@ namespace Soomla.Profile {
 		/// as well as payload </param>
 		public void onLoginCancelled(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginCancelled");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 
@@ -170,7 +186,9 @@ namespace Soomla.Profile {
 		/// ,error message and payload </param>
 		public void onLoginFailed(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginFailed");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 
@@ -189,7 +207,9 @@ namespace Soomla.Profile {
 		/// Will contain a numeric representation of <c>Provider</c></param>
 		public void onLogoutStarted(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutStarted");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 
@@ -205,7 +225,9 @@ namespace Soomla.Profile {
 		/// Will contain a numeric representation of <c>Provider</c></param>
 		public void onLogoutFinished(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFinished");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 			
@@ -222,7 +244,9 @@ namespace Soomla.Profile {
 		/// and payload</param>
 		public void onLogoutFailed(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFailed");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 
@@ -240,7 +264,9 @@ namespace Soomla.Profile {
 		/// numeric representation of <c>SocialActionType</c> and payload</param>
 		public void onSocialActionStarted(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionStarted");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 
@@ -260,7 +286,9 @@ namespace Soomla.Profile {
 		/// numeric representation of <c>SocialActionType</c> and payload</param>
 		public void onSocialActionFinished(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFinished");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 			
@@ -285,7 +313,9 @@ namespace Soomla.Profile {
 		/// numeric representation of <c>SocialActionType</c> and payload</param>
 		public void onSocialActionCancelled(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionCancelled");
+			#endif
 			
 			JSONObject eventJson = new JSONObject(message);
 			
@@ -306,7 +336,9 @@ namespace Soomla.Profile {
 		/// error message and payload</param>
 		public void onSocialActionFailed(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFailed");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 			
@@ -327,7 +359,9 @@ namespace Soomla.Profile {
 		/// and payload</param>
 		public void onGetContactsStarted(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsStarted");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 
@@ -348,7 +382,9 @@ namespace Soomla.Profile {
 		/// JSON array of <c>UserProfile</c>s and payload</param>
 		public void onGetContactsFinished(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFinished");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 			
@@ -380,7 +416,9 @@ namespace Soomla.Profile {
 		/// error message payload</param>
 		public void onGetContactsFailed(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFailed");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 			
@@ -402,7 +440,9 @@ namespace Soomla.Profile {
 		/// and payload</param>
 		public void onGetFeedStarted(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedStarted");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 			
@@ -419,7 +459,9 @@ namespace Soomla.Profile {
 		/// json array of feeds</param>
 		public void onGetFeedFinished(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedFinished");
+			#endif
 			
 			JSONObject eventJson = new JSONObject(message);
 			
@@ -443,7 +485,9 @@ namespace Soomla.Profile {
 		/// and an error message</param>
 		public void onGetFeedFailed(String message)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedFailed");
+			#endif
 
 			JSONObject eventJson = new JSONObject(message);
 			

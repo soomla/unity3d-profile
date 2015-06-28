@@ -96,7 +96,9 @@ namespace Soomla.Profile
 		/// <param name="payload">A string to receive when the function returns.</param>
 		/// <param name="reward">A <c>Reward</c> to give the user after a successful login.</param>
 		public static void Login(Provider provider, string payload="", Reward reward = null) {
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug (TAG, "Trying to login with provider " + provider.ToString ());
+			#endif
 			SocialProvider targetProvider = GetSocialProvider(provider);
 			string userPayload = (payload == null) ? "" : payload;
 			if (targetProvider == null)
@@ -747,7 +749,9 @@ namespace Soomla.Profile
 			#if UNITY_EDITOR
 			string key = keyUserProfile(userProfile.Provider);
 			string val = userProfile.toJSONObject().ToString();
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "key/val:" + key + "/" + val);
+			#endif
 			PlayerPrefs.SetString(key, val);
 			
 			if (notify) {

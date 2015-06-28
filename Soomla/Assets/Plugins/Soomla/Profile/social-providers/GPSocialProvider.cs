@@ -19,7 +19,9 @@ namespace Soomla.Profile
 {
 	public class GPSocialProvider : SocialProvider
 	{
+		#if DEBUG_SOOMLA
 		private static string TAG = "SOOMLA GPSocialProvider";
+		#endif
 
 		public GPSocialProvider () {
 			SoomlaProfile.ProviderBecameReady(this);
@@ -77,7 +79,9 @@ namespace Soomla.Profile
 		/// See docs in <see cref="SoomlaProfile.Like"/>
 		/// </summary>
 		public override void Like(string pageId) {
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug (TAG, "Like");
+			#endif
 			Application.OpenURL("https://plus.google.com/+" + pageId);
 		}
 

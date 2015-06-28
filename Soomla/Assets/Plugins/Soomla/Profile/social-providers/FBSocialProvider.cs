@@ -65,11 +65,15 @@ namespace Soomla.Profile
 		public override void Login(LoginSuccess success, LoginFailed fail, LoginCancelled cancel) {
 			FB.Login(this.loginPermissionsStr, (FBResult result) => {
 				if (result.Error != null) {
+					#if DEBUG_SOOMLA
 					SoomlaUtils.LogDebug (TAG, "LoginCallback[result.Error]: " + result.Error);
+					#endif
 					fail(result.Error);
 				}
 				else if (!FB.IsLoggedIn) {
+					#if DEBUG_SOOMLA
 					SoomlaUtils.LogDebug (TAG, "LoginCallback[cancelled]");
+					#endif
 					cancel();
 				}
 				else {
@@ -77,12 +81,18 @@ namespace Soomla.Profile
 						FB.API("/me?fields=id,name,email,first_name,last_name,picture",
 						       Facebook.HttpMethod.GET, (FBResult meResult) => {
 							if (meResult.Error != null) {
+								#if DEBUG_SOOMLA
 								SoomlaUtils.LogDebug (TAG, "ProfileCallback[result.Error]: " + meResult.Error);
+								#endif
 								fail(meResult.Error);
 							}
 							else {
+								#if DEBUG_SOOMLA
 								SoomlaUtils.LogDebug(TAG, "ProfileCallback[result.Text]: "+meResult.Text);
+								#endif
+								#if DEBUG_SOOMLA
 								SoomlaUtils.LogDebug(TAG, "ProfileCallback[result.Texture]: "+meResult.Texture);
+								#endif
 								string fbUserJson = meResult.Text;
 								UserProfile userProfile = UserProfileFromFBJsonString(fbUserJson);
 								
@@ -123,11 +133,17 @@ namespace Soomla.Profile
 				        (FBResult postFeedResult) => {
 					
 					if (postFeedResult.Error != null) {
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "UpdateStatusCallback[result.Error]:"+postFeedResult.Error);
+						#endif
 						fail(postFeedResult.Error);
 					} else {
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "UpdateStatusCallback[result.Text]:"+postFeedResult.Text);
+						#endif
+                        #if DEBUG_SOOMLA
                         SoomlaUtils.LogDebug(TAG, "UpdateStatusCallback[result.Texture]:"+postFeedResult.Texture);
+                        #endif
                         success();
                     }
                 }, formData);
@@ -163,8 +179,12 @@ namespace Soomla.Profile
 						fail(result.Error);
 					}
 					else {
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "FeedCallback[result.Text]:"+result.Text);
+						#endif
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "FeedCallback[result.Texture]:"+result.Texture);
+						#endif
 						var responseObject = Json.Deserialize(result.Text) as Dictionary<string, object>;
                         object obj = 0;
                         if (responseObject.TryGetValue("cancelled", out obj)) {
@@ -201,12 +221,18 @@ namespace Soomla.Profile
 				       (FBResult result) => {
 					
 					if (result.Error != null) {
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "UploadImageCallback[result.Error]: "+result.Error);
+						#endif
 						fail(result.Error);
 					}
 					else {
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "UploadImageCallback[result.Text]: "+result.Text);
+						#endif
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "UploadImageCallback[result.Texture]: "+result.Texture);
+						#endif
 						var responseObject = Json.Deserialize(result.Text) as Dictionary<string, object>;
 						object obj = 0;
                         if (responseObject.TryGetValue("cancelled", out obj)) {
@@ -244,12 +270,18 @@ namespace Soomla.Profile
 				        Facebook.HttpMethod.GET,
 				        (FBResult result) => {
 					if (result.Error != null) {
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "GetContactsCallback[result.Error]: "+result.Error);
+						#endif
 						fail(result.Error);
 					}
 					else {
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "GetContactsCallback[result.Text]: "+result.Text);
+						#endif
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug(TAG, "GetContactsCallback[result.Texture]: "+result.Texture);
+						#endif
 						JSONObject jsonContacts = new JSONObject(result.Text);
 						
 						SocialPageData<UserProfile> resultData = new SocialPageData<UserProfile>(); 
@@ -280,7 +312,9 @@ namespace Soomla.Profile
 					fail(result.Error);
 				}
 				else {
+					#if DEBUG_SOOMLA
 					SoomlaUtils.LogDebug(TAG, "Invite[result.Text]: "+result.Text);
+					#endif
 
 					JSONObject jsonResponse = new JSONObject(result.Text);
 					if (jsonResponse.HasField("cancelled")) {
@@ -328,8 +362,12 @@ namespace Soomla.Profile
 									fail(result.Error);
 								}
 								else {
+									#if DEBUG_SOOMLA
 									SoomlaUtils.LogDebug(TAG, "AppRequest[result.Text]: "+result.Text);
+									#endif
+									#if DEBUG_SOOMLA
 									SoomlaUtils.LogDebug(TAG, "AppRequest[result.Texture]: "+result.Texture);
+									#endif
 									JSONObject jsonResponse = new JSONObject(result.Text);
 									List<JSONObject> jsonRecipinets = jsonResponse["to"].list;
 									List<string> recipients = new List<string>();
@@ -371,14 +409,18 @@ namespace Soomla.Profile
 
 		private void OnInitComplete()
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
+			#endif
 
 			SoomlaProfile.ProviderBecameReady(this);
 		}
 
 		private void OnHideUnity(bool isGameShown)
 		{
+			#if DEBUG_SOOMLA
 			SoomlaUtils.LogDebug(TAG, "Is game showing? " + isGameShown);
+			#endif
 		}
 
 		/** Login Callbacks **/
@@ -442,7 +484,9 @@ namespace Soomla.Profile
 				JSONObject permissionsJson = new JSONObject(getPermissionsResult.Text);
 				this.permissions = this.parsePermissionsFromJson(permissionsJson);
 				
+				#if DEBUG_SOOMLA
 				SoomlaUtils.LogDebug(TAG, "fetched the following permissions: " + String.Join(",", this.permissions.ToArray()));
+				#endif
 
 				success();
 			});
@@ -470,13 +514,17 @@ namespace Soomla.Profile
 				
 				FB.Login(permissionsStr, (FBResult result) => {
 					if (result.Error != null) {
+						#if DEBUG_SOOMLA
 						SoomlaUtils.LogDebug (TAG, "LoginCallback[result.Error]: " + result.Error);
+						#endif
 						fail(result.Error);
 						return;
                     }
                     
                     if (!FB.IsLoggedIn) {
+                        #if DEBUG_SOOMLA
                         SoomlaUtils.LogDebug (TAG, "LoginCallback[cancelled]");
+                        #endif
                         fail("User has not granter the permissions");
                         return;
                     }
