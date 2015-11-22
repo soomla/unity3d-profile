@@ -37,6 +37,13 @@ namespace Soomla.Profile {
 		public const string UP_BIRTHDAY         = "birthday";
 		public const string UP_EXTRA            = "extra";
 
+		/** Game Services **/
+
+		public const string UP_IDENTIFIER = "id";
+		public const string UP_LEADERBOARD = @"leaderboard";
+		public const string UP_USER_PROFILE = "userProfile";
+		public const string UP_SCORE_VALUE = "scoreValue";
+		public const string UP_SCORE_RANK = "scoreRank";
 
 		/** Reward **/
 		

@@ -70,6 +70,15 @@ namespace Soomla.Profile {
 		[DllImport ("__Internal")]
 		private static extern void soomlaProfile_MultiShare(string text, string imageFilePath);
 
+		[DllImport ("__Internal")]
+		private static extern void soomlaProfile_GetLeaderboards(string provider, bool fromStart, string payload);
+
+		[DllImport ("__Internal")]
+		private static extern void soomlaProfile_GetScores(string provider, string leaderboard, bool fromStart, string payload);
+
+		[DllImport ("__Internal")]
+		private static extern void soomlaProfile_ReportScore(string provider, string leaderboard, int value, string payload);
+
 		protected override void _initialize (string customParamsJson) {
 			soomlaProfile_Initialize(customParamsJson);
 		}
@@ -159,6 +168,17 @@ namespace Soomla.Profile {
 			soomlaProfile_MultiShare(text, imageFilePath);
 		}
 
+		protected override void _getLeaderboards(Soomla.Profile.Provider provider, bool fromStart, string payload) {
+			soomlaProfile_GetLeaderboards(provider.ToString(), fromStart, payload);
+		}
+
+		protected override void _getScores(Soomla.Profile.Provider provider, Soomla.Profile.Leaderboard from, bool fromStart, string payload) {
+			soomlaProfile_GetScores(provider.ToString(), from.toJSONObject().ToString(), fromStart, payload);
+		}
+
+		protected override void _reportScore(Soomla.Profile.Provider provider, Soomla.Profile.Leaderboard where, int score, string payload) {
+			soomlaProfile_ReportScore(provider.ToString(), where.toJSONObject().ToString(), score, payload);
+		}
 
 		#endif
 	}
