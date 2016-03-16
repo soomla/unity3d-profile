@@ -28,7 +28,7 @@ namespace Soomla.Profile
 	/// This class represents the social provider Facebook. The functions implemented below are 
 	/// Facebook-specific. 
 	/// </summary>
-	public class FBSocialProvider : IAuthProvider, ISocialProvider
+	public partial class FBSocialProvider : IAuthProvider, ISocialProvider
 	{
 		private static string TAG = "SOOMLA FBSocialProvider";
 		private static int DEFAULT_CONTACTS_PAGE_SIZE = 25;
