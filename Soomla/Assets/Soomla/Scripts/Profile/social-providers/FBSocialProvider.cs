@@ -84,7 +84,7 @@ namespace Soomla.Profile
 
 		public void GetUserProfile(GetUserProfileSuccess success, GetUserProfileFailed fail) {
 			this.fetchPermissions(() => {
-				FB.API("/me?fields=id,name,email,first_name,last_name,picture,languages,gender,location",
+				FB.API("/me?fields=id,name,email,first_name,last_name,picture,languages,gender,location,birthday",
 				       HttpMethod.GET, (IGraphResult meResult) => {
 					if (meResult.Error != null) {
 						SoomlaUtils.LogDebug (TAG, "ProfileCallback[result.Error]: " + meResult.Error);
@@ -534,6 +534,9 @@ namespace Soomla.Profile
 			}
 			if (fbJsonObject["location"] != null && fbJsonObject["location"]["name"] != null) {
 				soomlaJsonObject.AddField(PJSONConsts.UP_LOCATION, fbJsonObject["location"]["name"].str);
+			}
+			if (fbJsonObject["birthday"] != null) {
+				soomlaJsonObject.AddField(PJSONConsts.UP_BIRTHDAY, fbJsonObject["birthday"].str);
 			}
 
 			if (provider != null) { //let us to know if method called during own profile receiving
