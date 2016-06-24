@@ -669,7 +669,7 @@ public class ProfileEventHandler {
         BusProvider.getInstance().post(new GetContactsFinishedEvent(provider, ISocialProvider.SocialActionType.GET_CONTACTS, contacts, payload, hasMore));
     }
 
-    public static void pushEventGetContactsFailed(String providerStr, String message, Boolean fromStart, String payload) {
+    public static void pushEventGetContactsFailed(String providerStr, String message, boolean fromStart, String payload) {
         IProvider.Provider provider = IProvider.Provider.getEnum(providerStr);
         BusProvider.getInstance().post(new GetContactsFailedEvent(provider, ISocialProvider.SocialActionType.GET_CONTACTS, message, fromStart, payload));
     }
