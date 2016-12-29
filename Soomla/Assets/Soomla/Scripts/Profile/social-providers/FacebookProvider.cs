@@ -407,14 +407,15 @@ namespace Soomla.Profile
 						}
 					}
 
-					if (jsonResponse.HasField("to")) {
-						List<JSONObject> jsonRecipinets = jsonResponse["to"].list;
-						List<string> invitedIds = new List<string>();
-						foreach (JSONObject o in jsonRecipinets) {
-							invitedIds.Add(o.str);
+						if (jsonResponse.HasField("to")) {
+							string[] jsonRecipinets = jsonResponse["to"].str.Split(',');
+							List<string> invitedIds = new List<string>();
+							foreach (string s in jsonRecipinets) {
+								invitedIds.Add(s);
+							}
+
+							success(jsonResponse["request"].str, invitedIds);
 						}
-						success(jsonResponse["request"].str, invitedIds);
-					}
 					else {
 						fail("Unable to send invite");
 					}
