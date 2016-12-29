@@ -162,7 +162,6 @@ namespace Soomla.Profile
 
 		public void OnInfoGUI() {
 			SoomlaEditorScript.RemoveSoomlaModuleButton(profileVersion, currentModuleVersion, "Profile");
-			SoomlaEditorScript.LatestVersionField ("unity3d-profile", currentModuleVersion, "New version available!", "http://library.soom.la/fetch/unity3d-profile-only/latest?cf=unity");
 			EditorGUILayout.Space();
 		}
 
