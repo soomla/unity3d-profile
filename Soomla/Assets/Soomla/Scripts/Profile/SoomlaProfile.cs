@@ -1049,7 +1049,6 @@ namespace Soomla.Profile
 			if (targetProvider.IsNativelyImplemented())
 			{
 				//fallback to native
-				string rewardId = reward != null ? reward.ID: "";
 				instance._showLeaderboards(provider, userPayload);
 			}
 			else

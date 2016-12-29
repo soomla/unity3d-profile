@@ -464,7 +464,6 @@ namespace Soomla.Profile {
 
 			bool hasMore = eventJson["hasMore"].b;
 			
-			JSONObject payloadJSON = new JSONObject(eventJson ["payload"].str);
 			SocialPageData<String> result = new SocialPageData<String>();
 			result.PageData = feeds;
 			result.PageNumber = 0;
